@@ -11,3 +11,12 @@ def programlama(request):
     return HttpResponse('Programalama')
 def mobiluygulamalar(request):
     return HttpResponse('Mobil uygulama')
+def getCoursesByCategory(request,category):
+    text = ""
+    if category == "program":
+        text = "program kurs"
+    elif category == "web":
+        text = "web kurslar"
+    else:
+        text = "yanllış girinti"
+    return HttpResponse(text)
