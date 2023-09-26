@@ -5,9 +5,8 @@ from django.urls import path
 
 urlpatterns = [
     path('list',views.kurslar),
-    path('details', views.details),
-    path('programlama', views.programlama),
-    path('mobil-uygulamalar',views.mobiluygulamalar),
-    path("<category>", views.getCoursesByCategory),
+    path('<kurs_adi>', views.details),
+    path("kategori/<int:category_id>", views.getCoursesByCategoryid),
+    path("kategori/<str:category_st>", views.getCoursesByCategory),
 ]
 
