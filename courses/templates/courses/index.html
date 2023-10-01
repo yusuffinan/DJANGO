@@ -6,9 +6,16 @@
 <div class="container mt-3">
     <div class="row">
         <div class="col-3" >
-            <!--menu-->
-            {% include "courses/partials/_category.html" %}
+            
+          {% for categor in categories %}
+          <div class="list-group">
+            <a href="{% url 'courses_by' categor %}" class="list-group-item list-group-action">{{categor}}</a>
           </div>
+            {% comment %} {% include "courses/partials/_category.html" %} {% endcomment %}
+
+          {% endfor %}
+            
+        </div>
           <div class="col-9">
             kurslar anasayfası
           </div>

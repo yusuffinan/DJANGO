@@ -5,20 +5,18 @@ from django.urls import reverse
 
 data = {
     'programlama':'programlama kurs listesi',
-    'web':'web listesii'
+    'web':'web listesii',
+    'mobil': 'mobil uygulamalar'
 
 }
-def index(request):
-    return render(request, "courses/index.html")
 
-def kurslar(request):
-   liste = ""
+
+def index(request):
    cateveri = list(data.keys())
-   for category in cateveri:
-       redirect_t = reverse("courses_by", args=[category])
-       liste += f"<li><a href = '{redirect_t}'>{category}</a></li>"
-   html = f"<ul><h2>KURS LİSTESİ</h2>{liste}</ul>"
-   return HttpResponse(html)
+   return render(request, 'courses/index.html', {
+       'categories': cateveri
+   })
+   
 
 
 def details(request,kurs_adi):
