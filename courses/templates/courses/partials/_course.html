@@ -1,0 +1,17 @@
+<div class="card mb-3" style="width: 14rem;">
+    <div class="row">
+        <div class="col-4 ">
+          <img class="card-img-top" src="{{cours.imageUrl}}" alt="{{cours.title}}">
+        </div>
+        <div class="col-8 ">
+          <h5 class="card-title">{{cours.title}}</h5>
+          <p class="card-text">{{cours.description|truncatechars:10}}</p>
+          <span class="badge bg-success">güncellendi</span>
+          <p></p>
+          <a href="{{cours.slug}}" class="btn btn-primary">İncele</a>
+          <p>{{cours.date}}</p>
+        </div>
+    </div>
+    
+    
+  </div>
