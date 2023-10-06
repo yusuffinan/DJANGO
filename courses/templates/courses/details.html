@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block title %}
-    Kursindex
+    Details
     {% endblock title %}
 
     {% block css_file %}
@@ -13,15 +13,14 @@
 <div class="container mt-3">
     <div class="row">
         <div class="col-3" >
-          {% include "courses/partials/_category.html" %}
+          <img class="card-img-top" src="{% static 'courses/img/' %}{{ Course.imageUrl }}" alt="{{cours.title}}">
         </div>
 
           <div class="col-9">
-            {% for cours in courses %}
+            <h1 class="h3">{{Course.title}}</h1>
+            <p>{{Course.description}}</p>
                 
-                  {% include "courses/partials/_course.html" %}
-                
-            {% endfor %}
+            
           </div>
     </div>
 </div>
