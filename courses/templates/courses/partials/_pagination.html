@@ -1,0 +1,23 @@
+{% if courses.paginator.num_pages > 1 %}
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                {% if courses.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{courses.previous_page_number}}">Geri</a></li>
+                {% endif %}
+                {% for i in courses.paginator.page_range %}
+                {% if courses.number == i %}
+                  <li class="page-item disabled"><a class="page-link" href="#">{{i}}</a></li>
+                {% else %}
+                  <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                {% endif %}
+                
+                {% endfor %}
+                
+                
+                {% if courses.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{courses.next_page_number}}">ileri</a></li>
+                {% endif %}
+                
+              </ul>
+            </nav>
+          {% endif %}
