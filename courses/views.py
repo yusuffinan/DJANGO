@@ -6,14 +6,31 @@ from .models import course, Category
 from django.core.paginator import Paginator
 
 def index(request):
-   kurslar = course.objects.filter(isActive=1)
+   kurslar = course.objects.filter(isActive=1, isHome=1)
    kategoriler = Category.objects.all()
    return render(request, 'courses/index.html', {
        'categories' : kategoriler,
        'courses' : kurslar
    })
    
+def search(request):
+        if "q" in request.GET and request.GET["q"] != "":
+            q = request.GET["q"]
+            kurslar = course.objects.filter(isActive=True, title__contains=q).order_by("date")
+            kategoriler = Category.objects.all()
+        else:
+            return redirect("/kurs")
 
+    
+        return render(request, 'courses/search.html', {
+        'categories' : kategoriler,
+        'courses' : kurslar,
+        
+        })
+    
+
+def course_create(request):
+     return render(request, "courses/course-create.html")
 
 def details(request,slug):
     try:
@@ -36,7 +53,7 @@ def getCoursesByCategory(request,slug):
         page = request.GET.get('page', 1)
         page_obj = paginator.page(page)
         
-        return render(request, 'courses/index.html', {
+        return render(request, 'courses/list.html', {
         'categories' : kategoriler,
         'courses' : page_obj,
         'selected_category' : slug
