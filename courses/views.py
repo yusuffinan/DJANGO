@@ -2,6 +2,8 @@ from datetime import date
 from django.shortcuts import render,redirect
 from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+
+from courses.forms import CourseCreateForm
 from .models import course, Category
 from django.core.paginator import Paginator
 
@@ -30,7 +32,14 @@ def search(request):
     
 
 def course_create(request):
-     return render(request, "courses/course-create.html")
+    if request.method=="POST":
+          form = CourseCreateForm(request.POST)
+          if form.is_valid():
+                form.Save()
+                return redirect("/kurs")
+    else:
+          form = CourseCreateForm
+    return render(request, "courses/course-create.html", {"form": form})
 
 def details(request,slug):
     try:
