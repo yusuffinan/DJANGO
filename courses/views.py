@@ -1,9 +1,9 @@
 from datetime import date
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 
-from courses.forms import CourseCreateForm
+from courses.forms import CourseCreateForm, CourseEditForm
 from .models import course, Category
 from django.core.paginator import Paginator
 
@@ -40,6 +40,23 @@ def course_create(request):
     else:
           form = CourseCreateForm
     return render(request, "courses/course-create.html", {"form": form})
+
+def course_list(request):
+     kurslar = course.objects.all()
+     return render(request, 'courses/course-list.html', {
+       'courses' : kurslar
+   })
+
+def course_edit(request, id):
+     coursed = get_object_or_404(course, pk=id) 
+
+     if request.method == "POST":
+          form = CourseEditForm(request.POST, instance=coursed)
+          form.save()
+          return redirect("course_list")
+     else:
+        form = CourseEditForm(instance=coursed)
+     return render(request, 'courses/edit-course.html', { "form":form } )
 
 def details(request,slug):
     try:
