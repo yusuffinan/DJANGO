@@ -11,6 +11,12 @@
         <li class ="nav-item">
             <a href="{% url "course_create" %}" class ="nav-link">Kurs Ekle</a>
         </li>
+        <li class ="nav-item">
+          <a href="{% url "category_create" %}" class ="nav-link">Category Ekle</a>
+      </li>
+      <li class ="nav-item">
+        <a href="{% url "category_list" %}" class ="nav-link">Kategori Listesi</a>
+    </li>
       </ul>
       
         <form class="d-flex" action="{% url 'search' %}">

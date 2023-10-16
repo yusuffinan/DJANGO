@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render,redirect
 from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 
-from courses.forms import CourseCreateForm, CourseEditForm
+from courses.forms import CategoryCreate, CourseCreateForm, CourseEditForm
 from .models import course, Category
 from django.core.paginator import Paginator
 
@@ -30,12 +30,27 @@ def search(request):
         
         })
     
+def category_create(request):
+        if request.method=="POST":
+          form = CategoryCreate(request.POST)
+          if form.is_valid():
+                form.save()
+                return redirect("/kurs")
+        else:
+            form = CategoryCreate
+        return render(request, "courses/category-create.html", {"form": form})
+
+def category_list(request):
+     kategori = Category.objects.all()
+     return render(request, 'courses/category-list.html', {
+       'categories' : kategori
+   })
 
 def course_create(request):
     if request.method=="POST":
           form = CourseCreateForm(request.POST)
           if form.is_valid():
-                form.Save()
+                form.save()
                 return redirect("/kurs")
     else:
           form = CourseCreateForm

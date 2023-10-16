@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}
+    Category Create
+    {% endblock title %}
+
+    {% block css_file %}
+    
+      <link rel="stylesheet" href="{% static 'courses/css/b.css' %}">
+
+    {% endblock  %}
+{% block body %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12" >
+            
+
+            <form action="{% url "category_create" %}" method= "POST">
+                 {% csrf_token %}
+
+                 {% for field in form %}
+                    <div class="mb-3">
+
+                        <label class="form-label" for="{{field.name.id_for_label}}">{{field.label}}</label>
+                        {{ field }}
+
+                    </div>
+                 {% endfor %}
+                 
+                
+                <button class="btn btn-primary" type="submit">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
