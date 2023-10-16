@@ -73,6 +73,13 @@ def course_edit(request, id):
         form = CourseEditForm(instance=coursed)
      return render(request, 'courses/edit-course.html', { "form":form } )
 
+def course_delete(request, id):
+     coursed = get_object_or_404(course, pk=id)
+     if request.method == "POST":
+          coursed.delete()
+          return redirect("course_list")
+     return render(request, 'courses/course-delete.html', {"coursed":coursed})
+
 def details(request,slug):
     try:
         Course = course.objects.get(slug=slug)
