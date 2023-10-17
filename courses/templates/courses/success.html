@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}
+    Course List
+{% endblock title %}
+
+    {% block css_file %}
+    
+      <link rel="stylesheet" href="{% static 'courses/css/b.css' %}">
+
+    {% endblock  %}
+{% block body %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12" >  
+          <p>Dosyanız yüklendi.</p>
+          </div>
+    </div>
+</div>
+
+{% endblock body %}

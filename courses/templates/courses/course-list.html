@@ -25,7 +25,8 @@
                 <tbody>
                     {% for course in courses %}
                       <tr>
-                        <td><img class="img-fluid" src="{% static 'courses/img/'|add:course.imageUrl %}" alt=""></td>
+                        <td>
+                          <img class="img-fluid" src="{{course.image.url}}" alt=""></td>
                         <td><a href="{% url 'course_details' course.slug  %}">{{course.title}}</a></td>
                         <td>{{course.slug}}</td>
                         <td><a href="{% url 'course_edit' course.id %}" class="btn btn-primary btn-sm">Güncelle</a>

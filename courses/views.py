@@ -3,8 +3,8 @@ from django.shortcuts import get_object_or_404, render,redirect
 from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 
-from courses.forms import CategoryCreate, CourseCreateForm, CourseEditForm
-from .models import course, Category
+from courses.forms import CategoryCreate, CourseCreateForm, CourseEditForm, UploadForm
+from .models import UploadModel, course, Category
 from django.core.paginator import Paginator
 
 def index(request):
@@ -48,7 +48,7 @@ def category_list(request):
 
 def course_create(request):
     if request.method=="POST":
-          form = CourseCreateForm(request.POST)
+          form = CourseCreateForm(request.POST, request.FILES)
           if form.is_valid():
                 form.save()
                 return redirect("/kurs")
@@ -66,7 +66,7 @@ def course_edit(request, id):
      coursed = get_object_or_404(course, pk=id) 
 
      if request.method == "POST":
-          form = CourseEditForm(request.POST, instance=coursed)
+          form = CourseEditForm(request.POST, request.FILES, instance=coursed)
           form.save()
           return redirect("course_list")
      else:
@@ -79,6 +79,20 @@ def course_delete(request, id):
           coursed.delete()
           return redirect("course_list")
      return render(request, 'courses/course-delete.html', {"coursed":coursed})
+
+def upload(request):
+    if request.method == "POST":
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+             model = UploadModel(image=request.FILES["imagey"])
+             model.save()
+             return render(request,"courses/success.html")
+    else:
+         form = UploadForm()
+         return render(request,"courses/upload.html", {"form":form})
+
+
+  
 
 def details(request,slug):
     try:

@@ -5,7 +5,7 @@ from courses.models import Category, course
 class CourseCreateForm(ModelForm):
     class Meta:
         model = course
-        fields = ("title", "description", "imageUrl", "slug")
+        fields = ("title", "description", "image", "slug")
         labels = {
             "title": "Kurs Başlığı",
             "description": "açıklama"
@@ -13,7 +13,6 @@ class CourseCreateForm(ModelForm):
         widgets = {
             "title":forms.TextInput(attrs={"class": "form-control"}),
             "description": forms.Textarea(attrs={"class": "form-control"}),
-            "imageUrl": forms.TextInput(attrs={"class":"form-control"}),
             "slug": forms.TextInput(attrs={"class":"form-control"})
         }
 
@@ -28,7 +27,6 @@ class CourseEditForm(ModelForm):
         widgets = {
             "title":forms.TextInput(attrs={"class": "form-control"}),
             "description": forms.Textarea(attrs={"class": "form-control"}),
-            "imageUrl": forms.TextInput(attrs={"class":"form-control"}),
             "slug": forms.TextInput(attrs={"class":"form-control"})
         }
     
@@ -45,3 +43,6 @@ class CategoryCreate(ModelForm):
             "slug": forms.TextInput(attrs={"class":"form-control"})
 
         }
+
+class UploadForm(forms.Form):
+    imagey = forms.ImageField()

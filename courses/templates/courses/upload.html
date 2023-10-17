@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}
+    Course List
+{% endblock title %}
+
+    {% block css_file %}
+    
+      <link rel="stylesheet" href="{% static 'courses/css/b.css' %}">
+
+    {% endblock  %}
+{% block body %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12" >  
+          <form action="{% url "upload_image" %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+              {{form}}
+              <button class="btn btn-outline-secondary" type="submit" >Yükle</button>
+            
+            
+          </form>
+          </div>
+    </div>
+</div>
+
+{% endblock body %}
