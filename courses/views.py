@@ -1,11 +1,9 @@
-from datetime import date
 from django.shortcuts import get_object_or_404, render,redirect
 from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from django.urls import reverse
-
 from courses.forms import CategoryCreate, CourseCreateForm, CourseEditForm, UploadForm
 from .models import UploadModel, course, Category
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 def index(request):
    kurslar = course.objects.filter(isActive=1, isHome=1)
@@ -30,6 +28,10 @@ def search(request):
         
         })
     
+def isAdmin(user):
+     return user.is_superuser
+
+@user_passes_test(isAdmin)
 def category_create(request):
         if request.method=="POST":
           form = CategoryCreate(request.POST)
@@ -40,12 +42,14 @@ def category_create(request):
             form = CategoryCreate
         return render(request, "courses/category-create.html", {"form": form})
 
+
 def category_list(request):
      kategori = Category.objects.all()
      return render(request, 'courses/category-list.html', {
        'categories' : kategori
    })
 
+@user_passes_test(isAdmin)
 def course_create(request):
     if request.method=="POST":
           form = CourseCreateForm(request.POST, request.FILES)
@@ -62,9 +66,10 @@ def course_list(request):
        'courses' : kurslar
    })
 
+
+@user_passes_test(isAdmin)
 def course_edit(request, id):
      coursed = get_object_or_404(course, pk=id) 
-
      if request.method == "POST":
           form = CourseEditForm(request.POST, request.FILES, instance=coursed)
           form.save()
@@ -73,6 +78,7 @@ def course_edit(request, id):
         form = CourseEditForm(instance=coursed)
      return render(request, 'courses/edit-course.html', { "form":form } )
 
+@user_passes_test(isAdmin)
 def course_delete(request, id):
      coursed = get_object_or_404(course, pk=id)
      if request.method == "POST":

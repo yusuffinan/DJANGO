@@ -19,7 +19,9 @@
                     <th style="width:100px"></th>
                     <th>Title</th>
                     <th>Slug</th>
+                    {% if user.is_superuser %}
                     <th style="width:70px"></th>
+                    {% endif %}
                   </tr>
                 </thead>
                 <tbody>
@@ -29,8 +31,10 @@
                           <img class="img-fluid" src="{{course.image.url}}" alt=""></td>
                         <td><a href="{% url 'course_details' course.slug  %}">{{course.title}}</a></td>
                         <td>{{course.slug}}</td>
+                        {% if user.is_superuser %}
                         <td><a href="{% url 'course_edit' course.id %}" class="btn btn-primary btn-sm">Güncelle</a>
-                        <a href="{% url 'course_delete' course.id %}" class="btn btn-danger btn-sm">Sil</a></td>
+                          <a href="{% url 'course_delete' course.id %}" class="btn btn-danger btn-sm">Sil</a></td>
+                          {% endif %}
                       </tr>
                     {% endfor %}    
                 </tbody>

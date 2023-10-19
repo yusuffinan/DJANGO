@@ -4,15 +4,20 @@ from django.contrib.auth.models import User
 
 
 def user_login(request):
-    if request.user.is_authenticated:
-        return redirect("index")
+    if request.user.is_authenticated and "next" in request.GET:
+           return render(request, "account/login.html",{"error":"Yetkiniz yok"})
     if request.method=="POST":
         username=request.POST["username"]
         password=request.POST["password"]
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("index")
+            next_url = request.GET.get("next", None)
+            if next_url is None:
+                return redirect("index")
+            else:
+                return redirect(next_url)
+            
         else:
             return render(request, "account/login.html",{"error":"Hatalı bili girdiniz"})
     else:
