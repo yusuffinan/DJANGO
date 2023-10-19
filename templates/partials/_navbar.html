@@ -25,18 +25,24 @@
           </ul>
           
           <ul class="navbar-nav me-0">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Hoş geldin, {{user.username}}</a>
+                </li>
+                <li class ="nav-item">
+                    <a href="{% url "user_logout" %}" class ="nav-link">Logout</a>
+                </li>
 
-              <li class ="nav-item">
-                  <a href="{% url "user_login" %}" class ="nav-link">Login</a>
-              </li>
-              <li class ="nav-item">
-                  <a href="{% url "user_register" %}" class ="nav-link">Register</a>
-              </li>
-              <li class ="nav-item">
-                  <a href="{% url "user_logout" %}" class ="nav-link">Logout</a>
-              </li>
-            
-          </ul>
+            {% else %}
+             <li class ="nav-item">
+                 <a href="{% url "user_login" %}" class ="nav-link">Login</a>
+                </li>
+                <li class ="nav-item">
+                    <a href="{% url "user_register" %}" class ="nav-link">Register</a>
+                </li>
+             {% endif %}
+                
+            </ul>
           
           <form class="d-flex" action="{% url 'search' %}">
               <input class="form-control me-1" type="text" name ="q"placeholder="Kurs ara" >

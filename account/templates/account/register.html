@@ -1,1 +1,50 @@
-register
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}
+    Register
+{% endblock title %}
+
+    {% block css_file %}
+    
+      <link rel="stylesheet" href="{% static 'courses/css/b.css' %}">
+
+    {% endblock  %}
+{% block body %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12" >  
+            <h1>Register</h1>
+            <hr>
+            <form method="post">
+                {% csrf_token %}
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endif %}
+                
+                <div class="mb-3"> 
+                    <label for="username" class="form-label">username</label>
+                    <input type="username" class="form-control" name="username" id="username" required 
+                    value={% if username %}{{ username }}{% endif %}>
+                </div>
+                <div class="mb-3"> 
+                    <label for="email" class="form-label">email</label>
+                    <input type="email" class="form-control" name="email" id="email" required 
+                    value={% if email %}{{ email }}{% endif %}>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">password</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="repassword" class="form-label">repassword</label>
+                    <input type="password" name="repassword" id="repassword" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-dark">Register</button>
+            </form>
+          </div>
+    </div>
+</div>
+
+{% endblock body %}
