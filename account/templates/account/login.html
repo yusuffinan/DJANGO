@@ -17,20 +17,9 @@
             <hr>
             <form method="post">
                 {% csrf_token %}
-                {% if error %}
-                <div class="alert alert-danger">
-                    {{ error }}
-                </div>
-                {% endif %}
                 
-                <div class="mb-3"> 
-                    <label for="username" class="form-label">username</label>
-                    <input type="username" class="form-control" name="username" id="username" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">password</label>
-                    <input type="password" name="password" id="password" class="form-control" required>
-                </div>
+                {% include "partials/_forms.html" %}
+
                 <button type="submit" class="btn btn-dark">Login</button>
             </form>
           </div>
