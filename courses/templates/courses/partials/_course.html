@@ -10,7 +10,7 @@
                   {{cours.title}}
               </a>
           </h5>
-          <p class="card-text">{{cours.description|truncatechars:10}}</p>
+          <p class="card-text">{{cours.subtitle}}</p>
           <p></p>
           <a href="{% url 'course_details' cours.slug %}" class="btn btn-primary">İncele</a>
           <p>{{cours.date}}</p>
