@@ -134,14 +134,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL ="/account/login"
 
+CKEDITOR_UPLOAD_PATH = "images/"
+
 MESSAGE_TAGS = {
     messages.DEBUG: "alert-secondary",
     messages.ERROR: "alert-danger",
     messages.SUCCESS: "alert-success",
     messages.WARNING: "alert-warning",
     messages.INFO: "alert-info"
-
-
 
 
 }

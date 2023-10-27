@@ -14,6 +14,7 @@ urlpatterns = [
     path("course-delete/<int:id>",views.course_delete, name="course_delete"),
     path("upload", views.upload, name="upload_image"),
     path('<slug:slug>', views.details, name="course_details"),
+    path('register_for_course/<int:id>/', views.register_for_course, name='register_for_course'),
     path("kategori/<slug:slug>", views.getCoursesByCategory, name="courses_by"),
 ]
 

@@ -16,7 +16,7 @@
           {% include "courses/partials/_category.html" %}
         </div>
         
-        <div class="col-9">
+        <div class="col-4">
         
         {% if courses|length == 0 %}
     
@@ -27,7 +27,11 @@
                   {% include "courses/partials/_course.html" %}
                 
           {% endfor %}
-          
+          </div>
+          <div class="col-5 mb-3"> 
+
+              {% include "courses/partials/_slider.html" %}
+              <p> Kurs görselleri.</p>
           </div>
           
     </div>

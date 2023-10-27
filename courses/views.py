@@ -126,4 +126,12 @@ def getCoursesByCategory(request,slug):
         'courses' : page_obj,
         'selected_category' : slug
         })
-    
+
+@login_required
+def register_for_course(request, id):
+    if request.method == "POST":
+        ku = get_object_or_404(course, pk=id)
+        request.user.kurslar.add(ku)
+        return redirect("index")
+    else:
+        return render(request, 'courses/details.html')   

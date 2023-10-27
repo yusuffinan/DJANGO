@@ -2,27 +2,44 @@
 {% load static %}
 {% block title %}
     Details
-    {% endblock title %}
+{% endblock title %}
 
-    {% block css_file %}
-    
-      <link rel="stylesheet" href="{% static 'courses/css/b.css' %}">
+{% block css_file %}
+    <link rel="stylesheet" href="{% static 'courses/css/b.css' %}">
+{% endblock %}
 
-    {% endblock  %}
 {% block body %}
 <div class="container mt-3">
     <div class="row">
-        <div class="col-3" >
-          <img class="card-img-top" src="{{ Course.image.url }}" alt="{{Course.title}}">
+        <div class="col-3">
+            <img class="card-img-top" src="{{ Course.image.url }}" alt="{{ Course.title }}">
         </div>
 
-          <div class="col-9">
-            <h1 class="h3">{{Course.title}}</h1>
+        <div class="col-9">
+            <h1 class="h3">{{ Course.title }}</h1>
             <p>{{ Course.description|safe }}</p>
+            <h2>Kursa Kaydolan Kullanıcılar</h2>
+            <ul>
+                {% for kullanici in Course.kullanicilar.all %}
+                    <li>{{ kullanici.username }}</li>
+                    
+                {% endfor %}
                 
+            </ul>
+            <p>Toplam kayıtlı kullanıcı sayısı: {{ Course.kullanicilar.all|length }}</p>
+
+            {% if not user.is_authenticated %}
+                <p>Giriş yapmadan kayıt olamazsınız. <a href="{% url 'user_login' %}">Giriş yapın</a></p>
+            {% else %}
+                <h2>Kursa Kaydol</h2>
+                <form method="post" action="{% url 'register_for_course' Course.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class = "btn btn-primary">Kursa Kayıt Ol</button>
+                </form>
+            {% endif %}
+
             
-          </div>
+        </div>
     </div>
 </div>
-
 {% endblock body %}
