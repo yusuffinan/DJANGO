@@ -105,8 +105,10 @@ def details(request,slug):
         Course = course.objects.get(slug=slug)
     except:
         raise Http404("yanlis")
+    kayitli_mi = Course.kullanicilar.filter(id=request.user.id).exists()
     context ={
-        'Course' : Course
+        'Course' : Course,
+        'kayitli_mi' : kayitli_mi,
     }
     return render(request, 'courses/details.html', context)
 def programlama(request):

@@ -34,7 +34,11 @@
                 <h2>Kursa Kaydol</h2>
                 <form method="post" action="{% url 'register_for_course' Course.id %}">
                     {% csrf_token %}
+                    {% if kayitli_mi %}
+                        <p class="alert alert-danger">Bu kursa kayıtlısınız.</p>
+                    {% else %}
                     <button type="submit" class = "btn btn-primary">Kursa Kayıt Ol</button>
+                    {% endif %}
                 </form>
             {% endif %}
 
