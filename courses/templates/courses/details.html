@@ -31,12 +31,13 @@
             {% if not user.is_authenticated %}
                 <p>Giriş yapmadan kayıt olamazsınız. <a href="{% url 'user_login' %}">Giriş yapın</a></p>
             {% else %}
-                <h2>Kursa Kaydol</h2>
+                
                 <form method="post" action="{% url 'register_for_course' Course.id %}">
                     {% csrf_token %}
                     {% if kayitli_mi %}
-                        <p class="alert alert-danger">Bu kursa kayıtlısınız.</p>
+                        <p class="alert alert-success">Bu kursa kayıtlısınız {{user.username}}.</p>
                     {% else %}
+                    <h2>Kursa Kaydol</h2>
                     <button type="submit" class = "btn btn-primary">Kursa Kayıt Ol</button>
                     {% endif %}
                 </form>
